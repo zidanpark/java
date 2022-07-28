@@ -1,5 +1,8 @@
 package hello.hellospring.controller;
 
+import hello.hellospring.domain.Member;
+import hello.hellospring.repository.MemberRepository;
+import hello.hellospring.service.MemberService;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -30,7 +33,6 @@ public class HelloController {
 
     @GetMapping("hello-api")
     @ResponseBody
-
     public Hello helloApi(@RequestParam("name") String name) {
         Hello hello = new Hello();
         hello.setName(name);
