@@ -3,7 +3,12 @@ package hello.objprob;
 import hello.objprob.charge.*;
 import hello.objprob.member.*;
 import hello.objprob.pattern.ChargePolicyFactory;
+import hello.objprob.pattern.ClassFactory;
+import hello.objprob.pattern.PaymentClassFactory;
 import hello.objprob.pattern.PolicyFactory;
+import hello.objprob.payment.PaymentClass;
+import hello.objprob.payment.PaymentService;
+import hello.objprob.payment.PaymentServiceImpl;
 
 public class AppConfig {
 
@@ -32,5 +37,15 @@ public class AppConfig {
          */
         PolicyFactory policyFactory = new ChargePolicyFactory();
         return policyFactory.createPolicy(type);
+    }
+
+    public PaymentService paymentService(String type) {
+        return new PaymentServiceImpl(memberRepository(), paymentClass(type));
+    }
+
+    public PaymentClass paymentClass(String type) {
+
+        ClassFactory classFactory = new PaymentClassFactory();
+        return classFactory.createClass(type);
     }
 }

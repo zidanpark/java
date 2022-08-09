@@ -17,7 +17,12 @@ public class Charge {
         this.balanceAmt = balanceAmt;
         this.chargeStatus = chargeStatus;
         this.calculateBalance();
+        this.notice();
 
+    }
+
+    public void notice() {
+        if(this.chargeStatus != false) System.out.println("충전에 성공하셨습니다.");
     }
 
     public int calculateBalance(){
