@@ -2,7 +2,9 @@ package hello.objprob.charge;
 
 import hello.objprob.member.Member;
 
+import java.util.Map;
+
 public interface ChargePolicy {
-    void chargeTickets();
-    boolean isCharging(Member member, int ticketAmt);
+    Map<Integer, String> chargeTickets();
+
 }

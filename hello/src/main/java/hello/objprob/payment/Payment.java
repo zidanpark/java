@@ -7,12 +7,21 @@ public class Payment {
     private String paymentClassType; // 결제 타입 분류(카드사, 은행사)
     private boolean paymentStatus; // 결제 성공 여부
 
-    public Payment(Long memberId, int paymentAmt, String paymentType, String paymentClassType, boolean paymentStatus) {
+    public Payment(Long memberId, int paymentAmt, String paymentType, String paymentClassType) throws Exception {
         this.memberId = memberId;
         this.paymentAmt = paymentAmt;
         this.paymentType = paymentType;
         this.paymentClassType = paymentClassType;
-        this.paymentStatus = paymentStatus;
+        this.payExecute();
+    }
+
+    private void payExecute() throws Exception
+    {
+        System.out.println("결제 진행 중...");
+        int flag = (int)((Math.random()*10000)%10);
+        if(flag <= 0) throw new Exception("결제 실패");
+        System.out.println("결제 성공");
+        this.paymentStatus = true;
     }
 
     public Long getMemberId() {
@@ -21,30 +30,6 @@ public class Payment {
 
     public void setMemberId(Long memberId) {
         this.memberId = memberId;
-    }
-
-    public int getPaymentAmt() {
-        return paymentAmt;
-    }
-
-    public void setPaymentAmt(int paymentAmt) {
-        this.paymentAmt = paymentAmt;
-    }
-
-    public String getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
-    }
-
-    public String getPaymentClassType() {
-        return paymentClassType;
-    }
-
-    public void setPaymentClassType(String paymentClassType) {
-        this.paymentClassType = paymentClassType;
     }
 
     public boolean isPaymentStatus() {

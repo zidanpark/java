@@ -17,7 +17,7 @@ public class AppConfig {
     }
 
     public ChargeService chargeService(String type) {
-        return new ChargeServiceImpl(memberRepository(), chargePolicy(type));
+        return new ChargeServiceImpl(memberRepository(), chargeCheck(type));
     }
 
     public MemberRepository memberRepository() {
@@ -25,8 +25,11 @@ public class AppConfig {
     }
 
     public ChargePolicy chargePolicy(String type) {
-        /**
-         *
+        PolicyFactory policyFactory = new ChargePolicyFactory();
+        return policyFactory.createPolicy(type);
+    }
+
+    public ChargeCheck chargeCheck(String type) {
         if(type == "FlatRate") {
             return new FlatRateChargePolicy();
         } else if (type == "Voice") {
@@ -34,17 +37,14 @@ public class AppConfig {
         }
         // Default
         return new VoiceChargePolicy();
-         */
-        PolicyFactory policyFactory = new ChargePolicyFactory();
-        return policyFactory.createPolicy(type);
     }
 
-    public PaymentService paymentService(String type) {
-        return new PaymentServiceImpl(memberRepository(), paymentClass(type));
+
+    public PaymentService paymentService(String paymentType, String chargeType) {
+        return new PaymentServiceImpl(memberRepository(), paymentClass(paymentType), chargeCheck(chargeType));
     }
 
     public PaymentClass paymentClass(String type) {
-
         ClassFactory classFactory = new PaymentClassFactory();
         return classFactory.createClass(type);
     }

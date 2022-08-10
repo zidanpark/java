@@ -5,11 +5,9 @@ import java.util.Scanner;
 
 public class CardPaymentClass implements PaymentClass {
 
-    @Override
-    public void payModuleCall() {
-        System.out.println("카드 충전 모듈을 호출하셨습니다.");
+    public CardPaymentClass(){
+        System.out.println("카드 결제 모듈 시작");
     }
-
     @Override
     public String getPayType() {
         String pgs = PaymentGroup.CARD.getLists();
@@ -17,8 +15,7 @@ public class CardPaymentClass implements PaymentClass {
     }
 
     @Override
-    public String selectPayType() {
-        String pgs = this.getPayType();
+    public String selectPayType(String pgs) {
         System.out.println("결제 수단을 입력해주세요");
         System.out.println(pgs);
         Scanner scan = new Scanner( System.in );
@@ -26,12 +23,6 @@ public class CardPaymentClass implements PaymentClass {
         String pg = PaymentGroup.CARD.getPayType(N-1);
         System.out.println(pg+"로 선택하셨습니다.");
         return pg;
-    }
-
-    @Override
-    public boolean payExecute() {
-        System.out.println("결제 성공");
-        return true;
     }
 
 }

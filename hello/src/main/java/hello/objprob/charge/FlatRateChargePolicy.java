@@ -6,32 +6,20 @@ import hello.objprob.member.PlanType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FlatRateChargePolicy implements ChargePolicy{
-    private Map<Integer, String> tickets;
-
-    public FlatRateChargePolicy() {
-        this.chargeTickets();
-    }
-
+public class FlatRateChargePolicy implements ChargePolicy, ChargeCheck {
     @Override
-    public void chargeTickets() {
+    public Map<Integer, String> chargeTickets() {
         Map<Integer, String> map = new HashMap<Integer, String>();
         map.put(36300, (36300)+"원권");
+        map.put(56300, (56300)+"원권");
 
-        this.tickets = map;
+        return map;
     }
 
     @Override
-    public boolean isCharging(Member member, int ticketAmt) {
-        if(member.getType() != PlanType.FlatRate) {
-            System.out.println("저는 선불 정액 요금이 아니라 정액 요금 충전이 불가능합니다.");
-            return false;
-        }
-
-        if(tickets.get(ticketAmt) == null){
-            System.out.println("충전 가능한 요금이 아닙니다.");
-            return false;
-        }
+    public boolean isChargeCheck(Member member, int ticketAmt) throws Exception {
+        if(member.getType() != PlanType.FlatRate) throw new Exception("저는 선불 정액 요금이 아니라 정액 요금 충전이 불가능합니다.");
+        if(this.chargeTickets().get(ticketAmt) == null) throw new Exception("충전 가능한 금액이 아닙니다.");
 
         System.out.println("저는 선불 정액 요금! 충전이 가능합니다.");
         return true;

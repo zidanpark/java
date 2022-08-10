@@ -9,21 +9,26 @@ public class Charge {
     private int beforeBalanceAmt;
     private boolean chargeStatus;
 
-    public Charge(Long memberId, String memberName, String ticketName, int ticketAmt, int balanceAmt, boolean chargeStatus) {
+    public Charge(Long memberId, String memberName, String ticketName, int ticketAmt, int balanceAmt) throws Exception {
         this.memberId = memberId;
         this.ticketName = ticketName;
         this.memberName = memberName;
         this.ticketAmt = ticketAmt;
         this.balanceAmt = balanceAmt;
-        this.chargeStatus = chargeStatus;
+        this.chargeExecute();
         this.calculateBalance();
-        this.notice();
+
 
     }
 
-    public void notice() {
-        if(this.chargeStatus != false) System.out.println("충전에 성공하셨습니다.");
+    private void chargeExecute() throws Exception {
+        System.out.println("충전 진행 중...");
+        int flag = (int)((Math.random()*10000)%10);
+        if(flag <= 0) throw new Exception("충전 실패");
+        System.out.println("충전 성공");
+        this.chargeStatus = true;
     }
+
 
     public int calculateBalance(){
         this.beforeBalanceAmt = this.balanceAmt;
@@ -41,44 +46,8 @@ public class Charge {
         this.memberId = memberId;
     }
 
-    public String getTicketName() {
-        return ticketName;
-    }
-
-    public void setTicketName(String ticketName) {
-        this.ticketName = ticketName;
-    }
-
-    public int getTicketAmt() {
-        return ticketAmt;
-    }
-
-    public void setTicketAmt(int ticketAmt) {
-        this.ticketAmt = ticketAmt;
-    }
-
     public int getBalanceAmt() {
         return balanceAmt;
-    }
-
-    public void setBalanceAmt(int balanceAmt) {
-        this.balanceAmt = balanceAmt;
-    }
-
-    public boolean isChargeStatus() {
-        return chargeStatus;
-    }
-
-    public String getMemberName() {
-        return memberName;
-    }
-
-    public void setMemberName(String memberName) {
-        this.memberName = memberName;
-    }
-
-    public void setChargeStatus(boolean chargeStatus) {
-        this.chargeStatus = chargeStatus;
     }
 
     @Override
