@@ -19,10 +19,12 @@ public class PaymentServiceImpl implements PaymentService{
     @Override
     public Payment executePayment(Long memberId, int paymentAmt, String paymentType) {
         System.out.println("결제 진행됩니다.");
-        paymentClass.payModuleCall();
-        String paymentClassType = paymentClass.selectPayType();
 
-        return new Payment(memberId, paymentAmt, paymentType, paymentClassType, true);
+        paymentClass.payModuleCall();
+
+        String paymentClassType = paymentClass.selectPayType();
+        boolean paymentStatus = paymentClass.payExecute();
+        return new Payment(memberId, paymentAmt, paymentType, paymentClassType, paymentStatus);
     }
 
 }

@@ -22,9 +22,8 @@ public class ChargeApp {
         try {
             int ticketAmt = 1000;
             String payType = "Account";
-
+            // DI 구현 클래스에 변경 없이 조립가능.
             AppConfig appConfig = new AppConfig();
-
             MemberService memberService = appConfig.memberService();
             ChargeService chargeService = appConfig.chargeService("Voice");
             PaymentService paymentService = appConfig.paymentService(payType);
@@ -36,7 +35,16 @@ public class ChargeApp {
 
             Member findMember = memberService.findMember(1L);
 
+            payment = paymentService.executePayment(findMember.getId(), ticketAmt, payType);
+            System.out.println("결제 내역 : " + payment);
+
+            charge = chargeService.createCharge(findMember.getId(), "ticketA", ticketAmt, findMember.getBalanceAmt());
+            System.out.println("충전 내역 : "+ charge);
+            System.out.println("잔액 : " + charge.getBalanceAmt());
+
             // 충전 가능 여부 체크
+            /**
+             * 충전 체크를 컨트롤러에서?
             if (chargeService.isCharge(findMember, ticketAmt)) {
                 payment = paymentService.executePayment(findMember.getId(), ticketAmt, payType);
                 System.out.println(payment);
@@ -47,9 +55,11 @@ public class ChargeApp {
                 return;
             }
 
-            charge = chargeService.createCharge(findMember.getId(), "ticketA", ticketAmt, findMember.getBalanceAmt());
-            System.out.println(charge);
-            System.out.println("잔액 : " + charge.getBalanceAmt());
+             System.out.println(charge);
+             System.out.println("잔액 : " + charge.getBalanceAmt());
+            */
+
+
         } catch ( Exception e ) {
 
         } finally {

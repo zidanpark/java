@@ -5,6 +5,7 @@ import hello.objprob.member.MemberRepository;
 import hello.objprob.member.MemoryMemberRepository;
 
 public class ChargeServiceImpl implements ChargeService{
+    // final이 쓰인 이유 - memberRepository에 한번 객체가 등록되면 다른 객체로 변경 불가 하게 하기 위해.
     private final MemberRepository memberRepository;
     private final ChargePolicy chargePolicy;
 

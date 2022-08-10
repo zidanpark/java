@@ -28,4 +28,10 @@ public class CardPaymentClass implements PaymentClass {
         return pg;
     }
 
+    @Override
+    public boolean payExecute() {
+        System.out.println("결제 성공");
+        return true;
+    }
+
 }

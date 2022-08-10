@@ -10,4 +10,6 @@ public interface PaymentClass {
     String getPayType();
     String selectPayType();
 
+    boolean payExecute();
+
 }

@@ -13,11 +13,6 @@ public class Payment {
         this.paymentType = paymentType;
         this.paymentClassType = paymentClassType;
         this.paymentStatus = paymentStatus;
-        this.notice();
-    }
-
-    public void notice() {
-        if(this.paymentStatus) System.out.println("결제에 성공하셨습니다.");
     }
 
     public Long getMemberId() {
